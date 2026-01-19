@@ -3,11 +3,33 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spotify Landing</title>
+    <title>Wave</title>
     <link rel="stylesheet" href="../styles/main.css">
   </head>
 
   <body>
+    <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <span></span>
+      <strong>Wave</strong>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="active">🏠 Início</a>
+      <a>🔍 Buscar</a>
+      <a>📚 Biblioteca</a>
+    </nav>
+
+    <div class="sidebar-divider"></div>
+
+    <div class="sidebar-playlists">
+      <span class="title">PLAYLISTS</span>
+      <a>Minha vibe</a>
+      <a>Rap BR</a>
+      <a>Daily Mix</a>
+    </div>
+  </aside>
     <header>
       <nav>
         <a href="index.html">Início</a>
@@ -16,7 +38,7 @@
 
     <main>
       <section class="hero">
-        <h1>Spotify Web Player</h1>
+        <h1>Wave</h1>
 
         <h2>
           Sua música, seu ritmo, em qualquer lugar.
@@ -34,15 +56,27 @@
           <button>Pesquisar</button>
         </form>
         <section class="results">
-            <h3>Músicas encontradas</h3>
-            <div class="row music-row"></div>
-
-            <h3>Artistas encontrados</h3>
-            <div class="row artist-row"></div>
-
-            <h3>Álbuns encontrados</h3>
-            <div class="row album-row"></div>
-        </section>
+          <div class="section">
+            <div class="section-header">
+              <h3>Músicas encontradas</h3>
+              <span class="see-all">Mostrar tudo</span>
+            </div>
+              <div class="row music-row"></div>
+          </div>
+              <div class="section">
+              <div class="section-header">
+              <h3>Artistas encontrados</h3>
+              <span class="see-all">Mostrar tudo</span>
+          </div>
+              <div class="row artist-row"></div>
+          </div>
+              <div class="section">
+              <div class="section-header">
+              <h3>Álbuns encontrados</h3>
+              <span class="see-all">Mostrar tudo</span>
+          </div>
+              <div class="row album-row"></div>
+          </div>
     </section>
     </main>
         <div class="glow glow-main"></div>

@@ -1,93 +1,114 @@
-const API_KEY = "1432207ec6b699441f6555de4af24a2f";
-const BASE = "https://ws.audioscrobbler.com/2.0/";
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("music.js carregado");
 
-const form = document.querySelector("form");
-const input = document.querySelector("#search");
+  const API_KEY = "1432207ec6b699441f6555de4af24a2f";
+  const BASE_URL = "https://ws.audioscrobbler.com/2.0/";
 
-const musicRow = document.querySelector(".music-row");
-const artistRow = document.querySelector(".artist-row");
-const albumRow = document.querySelector(".album-row");
+  const form = document.querySelector("form");
+  const searchInput = document.querySelector("#search");
 
-/* =========================
-   FETCH HELPERS
-========================= */
-async function fetchAPI(params) {
-  const url = `${BASE}?${params}&api_key=${API_KEY}&format=json`;
-  const res = await fetch(url);
-  return res.json();
-}
+  const musicRow = document.querySelector(".music-row");
+  const artistRow = document.querySelector(".artist-row");
+  const albumRow = document.querySelector(".album-row");
 
-/* =========================
-   RENDER
-========================= */
-function createCard({ image, title, subtitle }, delay = 0) {
-  const card = document.createElement("div");
-  card.className = "card";
-  card.style.animationDelay = `${delay}s`;
+  if (!form || !searchInput) {
+    console.error("Form ou input não encontrado");
+    return;
+  }
 
-  card.innerHTML = `
-    <img src="${image}">
-    <h4>${title}</h4>
-    <p>${subtitle}</p>
-  `;
+  async function fetchAPI(params) {
+    const url = `${BASE_URL}?${params}&api_key=${API_KEY}&format=json`;
+    const res = await fetch(url);
+    return res.json();
+  }
 
-  return card;
-}
+  function createCard({ image, title, subtitle }, delay = 0) {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.style.animationDelay = `${delay}s`;
 
-/* =========================
-   BUSCA
-========================= */
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const query = input.value.trim();
-  if (!query) return;
+    card.innerHTML = `
+      <img src="${image}">
+      <h4>${title}</h4>
+      <p>${subtitle}</p>
+    `;
 
-  musicRow.innerHTML = "";
-  artistRow.innerHTML = "";
-  albumRow.innerHTML = "";
+    return card;
+  }
 
-  /* MÚSICAS */
-  const tracks = await fetchAPI(`method=track.search&track=${query}&limit=10`);
-  tracks.results.trackmatches.track.forEach((t, i) => {
-    musicRow.appendChild(
-      createCard(
-        {
-          image: t.image[2]["#text"] || "https://via.placeholder.com/300",
-          title: t.name,
-          subtitle: t.artist
-        },
-        i * 0.05
-      )
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const query = searchInput.value.trim();
+    if (!query) return;
+
+    console.log("Buscando por:", query);
+
+    musicRow.innerHTML = "";
+    artistRow.innerHTML = "";
+    albumRow.innerHTML = "";
+
+    /* ================= MÚSICAS ================= */
+    const trackData = await fetchAPI(
+      `method=track.search&track=${encodeURIComponent(query)}&limit=10`
     );
-  });
 
-  /* ARTISTAS */
-  const artists = await fetchAPI(`method=artist.search&artist=${query}&limit=10`);
-  artists.results.artistmatches.artist.forEach((a, i) => {
-    artistRow.appendChild(
-      createCard(
-        {
-          image: a.image[2]["#text"] || "https://via.placeholder.com/300",
-          title: a.name,
-          subtitle: "Artista"
-        },
-        i * 0.05
-      )
-    );
-  });
+    const tracks =
+      trackData?.results?.trackmatches?.track || [];
 
-  /* ÁLBUNS */
-  const albums = await fetchAPI(`method=album.search&album=${query}&limit=10`);
-  albums.results.albummatches.album.forEach((a, i) => {
-    albumRow.appendChild(
-      createCard(
-        {
-          image: a.image[2]["#text"] || "https://via.placeholder.com/300",
-          title: a.name,
-          subtitle: a.artist
-        },
-        i * 0.05
-      )
+    tracks.forEach((t, i) => {
+      musicRow.appendChild(
+        createCard(
+          {
+            image: t.image?.[2]?.["#text"] || "https://via.placeholder.com/300",
+            title: t.name,
+            subtitle: t.artist
+          },
+          i * 0.05
+        )
+      );
+    });
+
+    /* ================= ARTISTAS ================= */
+    const artistData = await fetchAPI(
+      `method=artist.search&artist=${encodeURIComponent(query)}&limit=10`
     );
+
+    const artists =
+      artistData?.results?.artistmatches?.artist || [];
+
+    artists.forEach((a, i) => {
+      artistRow.appendChild(
+        createCard(
+          {
+            image: a.image?.[2]?.["#text"] || "https://via.placeholder.com/300",
+            title: a.name,
+            subtitle: "Artista"
+          },
+          i * 0.05
+        )
+      );
+    });
+
+    /* ================= ÁLBUNS ================= */
+    const albumData = await fetchAPI(
+      `method=album.search&album=${encodeURIComponent(query)}&limit=10`
+    );
+
+    const albums =
+      albumData?.results?.albummatches?.album || [];
+
+    albums.forEach((a, i) => {
+      albumRow.appendChild(
+        createCard(
+          {
+            image: a.image?.[2]?.["#text"] || "https://via.placeholder.com/300",
+            title: a.name,
+            subtitle: a.artist
+          },
+          i * 0.05
+        )
+      );
+    });
   });
 });
