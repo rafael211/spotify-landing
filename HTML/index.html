@@ -1,37 +1,43 @@
 <!DOCTYPE html>
- <html lang="pt-br">
-     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Spotify Landing</title>
-        <link rel="stylesheet" href="../styles/main.css">
-     </head>
-    <body>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Landing</title>
+    <link rel="stylesheet" href="../styles/main.css">
+  </head>
+
+  <body>
     <header>
-        <nav>
-            <a href="index.html"> Início </a>
-        </nav>
+      <nav>
+        <a href="index.html">Início</a>
+      </nav>
     </header>
+
     <main>
-    <section> <!--Seção de apresentação do Spotify Web Player-->
-        <h1>
-            Spotify Web Player
-        </h1>
+      <section class="hero">
+        <h1>Spotify Web Player</h1>
+
         <h2>
-            Sua música, Seu ritmo, Em qualquer lugar.
+          Sua música, seu ritmo, em qualquer lugar.
         </h2>
-        <h3>Buscar Músicas, Artistas e Álbuns</h3> <!--Barra de pesquisa-->
+
+        <h3>Buscar músicas, artistas e álbuns</h3>
+
         <form>
-            <label for="search">Buscar músicas</label>
-            <input
+          <label for="search">Buscar músicas</label>
+          <input
             type="search"
             id="search"
-            placeholder="Pesquisar músicas, artistas, álbuns">
-            <button>Pesquisar</button>
-                <!-- Colocar imagem/ícone de lupa para estilizar a barra de pesquisa -->
+            placeholder="Pesquisar músicas, artistas, álbuns"
+          >
+          <button>Pesquisar</button>
         </form>
-
-      </section>   
+      </section>
     </main>
-    </body> 
- </html>
+        <div class="glow glow-main"></div>
+        <div class="glow glow-echo"></div>
+        <div class="glow glow-echo"></div>
+        <script src="../scripts/animations.js"></script>
+  </body>
+</html>
