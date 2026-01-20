@@ -6,8 +6,7 @@ Uma plataforma de streaming de música inspirada no Spotify, desenvolvida com te
 
 - **Interface Inspirada no Spotify**: Design moderno com tema escuro, gradientes e layout responsivo
 - **Sistema de Mock Data**: Dados simulados de músicas para demonstração
-- **Geração Procedural de Música**: Sistema de síntese de áudio usando Web Audio API para criar melodias únicas
-- **Controles de Reprodução**: Play/pause, barra de progresso, controles de volume
+- **Controles de Reprodução**: Play/pause, barra de progresso, controles de volume (interface implementada)
 - **Funcionalidade de Busca**: Pesquisa de músicas com resultados dinâmicos
 - **Páginas Múltiplas**: Página inicial, busca e biblioteca
 - **Imagens de Alta Qualidade**: Integração com Unsplash para capas de álbuns
@@ -16,15 +15,15 @@ Uma plataforma de streaming de música inspirada no Spotify, desenvolvida com te
 
 - **HTML5**: Estrutura semântica das páginas
 - **CSS3**: Estilização avançada com Flexbox, Grid e animações
-- **JavaScript (ES6+)**: Lógica de aplicação, manipulação DOM e Web Audio API
-- **Web Audio API**: Síntese procedural de música e efeitos sonoros
+- **JavaScript (ES6+)**: Lógica de aplicação e manipulação DOM
+- **Web Audio API**: Preparado para síntese de áudio (não funcional atualmente)
 - **Python HTTP Server**: Servidor local para desenvolvimento
 
 ## 📦 Instalação e Configuração
 
 1. **Clone o repositório**:
    ```bash
-   git clone https://github.com/seu-usuario/wave.git
+   git clone https://github.com/rafael211/wave.git
    cd wave
    ```
 
@@ -40,12 +39,17 @@ Uma plataforma de streaming de música inspirada no Spotify, desenvolvida com te
 
 1. Navegue pela página inicial para ver as músicas em alta
 2. Use a barra de busca para encontrar músicas específicas
-3. Clique em uma música para reproduzir
-4. Use os controles do player para pausar, avançar ou ajustar o volume
+3. Clique em uma música para interagir com os controles (reprodução ainda não funcional)
+
+## ⚠️ Problemas Atuais
+
+- **Reprodução de Música Não Funcional**: O sistema de geração procedural de música usando Web Audio API está implementado mas apresenta problemas técnicos, impedindo a reprodução de áudio
+- **Integração com API Externa**: Tentativas de integração com SoundCloud API falharam devido a chave inválida
+- **Funcionalidades Limitadas**: Muitas features estão na interface mas sem backend completo
 
 ## 🔮 Plano de Desenvolvimento Futuro
 
-- **Correção da Reprodução de Música**: Resolver problemas na geração procedural para garantir áudio funcional
+- **Correção da Reprodução de Música**: Resolver bugs na geração procedural para habilitar áudio funcional
 - **Integração com API Real**: Implementar SoundCloud API ou outras APIs de música quando chaves válidas estiverem disponíveis
 - **Sistema de Usuários**: Autenticação e perfis pessoais
 - **Playlists Personalizadas**: Criação e gerenciamento de playlists
