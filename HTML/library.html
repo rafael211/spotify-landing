@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wave - Sua Biblioteca</title>
+  <link rel="stylesheet" href="../styles/main.css" />
+</head>
+
+<body>
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+    <div class="logo">
+      <div class="logo-wave wave-1"></div>
+      <div class="logo-wave wave-2"></div>
+      <div class="logo-wave wave-3"></div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="index.html">Home</a>
+      <a href="search.html">Search</a>
+      <a href="library.html" class="active">Your Library</a>
+    </nav>
+
+    <div class="sidebar-divider"></div>
+
+    <div class="sidebar-playlists">
+      <a href="#" onclick="showCreatePlaylist()">Create Playlist</a>
+      <a href="#">Liked Songs</a>
+      <!-- Playlists dinâmicas -->
+    </div>
+  </div>
+
+  <!-- APP -->
+  <div class="app">
+    <!-- HEADER -->
+    <header>
+      <div class="navbar">
+        <div class="nav-link" onclick="history.back()">←</div>
+        <div class="nav-link" onclick="history.forward()">→</div>
+        <div class="search">
+          <input type="text" placeholder="Buscar na sua biblioteca" />
+        </div>
+        <div class="user" onclick="showLogin()">Login</div>
+      </div>
+    </header>
+
+    <!-- MUSIC PLAYER -->
+    <div class="music-player">
+      <div class="player-info">
+        <img id="current-track-image" src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=300&fit=crop" alt="Track" />
+        <div>
+          <div id="current-track-title">Select a track to play</div>
+          <div id="current-track-artist">Artist</div>
+        </div>
+      </div>
+      <div class="player-controls">
+        <button onclick="previousTrack()">⏮</button>
+        <button id="play-pause-btn" onclick="togglePlayPause()">▶</button>
+        <button onclick="nextTrack()">⏭</button>
+      </div>
+      <div class="player-progress">
+        <span id="current-time">0:00</span>
+        <input type="range" id="progress-bar" min="0" max="100" value="0" oninput="seekTrack(this.value)" />
+        <span id="duration">0:00</span>
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+      <h1>Sua Biblioteca</h1>
+      <div class="library-tabs">
+        <button onclick="showLibraryTab('playlists')" class="active">Playlists</button>
+        <button onclick="showLibraryTab('artists')">Artistas</button>
+        <button onclick="showLibraryTab('albums')">Álbuns</button>
+        <button onclick="showLibraryTab('songs')">Músicas</button>
+      </div>
+      <div id="library-content">
+        <div class="cards-grid">
+          <div class="card">
+            <img src="../assets/visuals/playlist1.jpg" alt="Playlist" />
+            <h4>Minha Playlist 1</h4>
+            <p>10 músicas</p>
+          </div>
+          <div class="card">
+            <img src="../assets/visuals/playlist2.jpg" alt="Playlist" />
+            <h4>Descobertas</h4>
+            <p>25 músicas</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modais iguais -->
+  <div id="login-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Login</h2>
+      <form onsubmit="login(event)">
+        <input type="email" placeholder="Email" required />
+        <input type="password" placeholder="Senha" required />
+        <button type="submit">Entrar</button>
+      </form>
+      <p>Ou <a href="#" onclick="loginWithSoundCloud()">Entrar com SoundCloud</a></p>
+    </div>
+  </div>
+
+  <div id="create-playlist-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Criar Playlist</h2>
+      <form onsubmit="createPlaylist(event)">
+        <input type="text" id="playlist-name" placeholder="Nome da playlist" required />
+        <textarea id="playlist-description" placeholder="Descrição (opcional)"></textarea>
+        <button type="submit">Criar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- GLOW -->
+  <div class="glow glow-main"></div>
+
+  <script src="../scripts/animations.js"></script>
+  <script src="../scripts/music.js"></script>
+</body>
+</html>

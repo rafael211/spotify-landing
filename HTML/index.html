@@ -1,88 +1,201 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wave</title>
-    <link rel="stylesheet" href="../styles/main.css">
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wave</title>
+  <link rel="stylesheet" href="../styles/main.css" />
+</head>
 
-  <body>
-    <!-- SIDEBAR -->
-  <aside class="sidebar">
+<body>
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
     <div class="logo">
-        <div class="logo-wave wave-1"></div>
-        <div class="logo-wave wave-2"></div>
-        <div class="logo-wave wave-3"></div>
-      </div>
+      <div class="logo-wave wave-1"></div>
+      <div class="logo-wave wave-2"></div>
+      <div class="logo-wave wave-3"></div>
+    </div>
+
     <nav class="sidebar-nav">
-      <a class="active">🏠 Início</a>
-      <a>🔍 Buscar</a>
-      <a>📚 Biblioteca</a>
+      <a href="index.html" class="active">Home</a>
+      <a href="search.html">Search</a>
+      <a href="library.html">Your Library</a>
     </nav>
 
     <div class="sidebar-divider"></div>
 
     <div class="sidebar-playlists">
-      <span class="title">PLAYLISTS</span>
-      <a>Minha vibe</a>
-      <a>Rap BR</a>
-      <a>Daily Mix</a>
+      <a href="#" onclick="showCreatePlaylist()">Create Playlist</a>
+      <a href="#">Liked Songs</a>
+      <!-- Playlists dinâmicas -->
     </div>
-  </aside>
+  </div>
+
+  <!-- APP -->
+  <div class="app">
+    <!-- HEADER -->
     <header>
-      <nav>
-        <a href="index.html">Início</a>
-      </nav>
+      <div class="navbar">
+        <div class="nav-link">←</div>
+        <div class="nav-link">→</div>
+        <div class="search">
+          <input type="text" id="search-input" placeholder="What do you want to listen to?" onkeyup="searchTracks()" />
+        </div>
+        <div class="user" onclick="showLogin()">Login</div>
+      </div>
     </header>
 
-    <main>
-      <section class="hero">
-        <h1>Wave</h1>
+    <!-- MUSIC PLAYER -->
+    <div class="music-player">
+      <div class="player-info">
+        <img id="current-track-image" src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=300&fit=crop" alt="Track" />
+        <div>
+          <div id="current-track-title">Clique em uma música para ouvir</div>
+          <div id="current-track-artist">🎵 Música procedural gerada automaticamente</div>
+        </div>
+      </div>
+      <div class="player-controls">
+        <button onclick="previousTrack()">⏮</button>
+        <button id="play-pause-btn" onclick="togglePlayPause()">▶</button>
+        <button onclick="nextTrack()">⏭</button>
+      </div>
+      <div class="player-progress">
+        <span id="current-time">0:00</span>
+        <input type="range" id="progress-bar" min="0" max="100" value="0" oninput="seekTrack(this.value)" />
+        <span id="duration">0:00</span>
+      </div>
+    </div>
 
-        <h2>
-          Sua música, seu ritmo, em qualquer lugar.
-        </h2>
-
-        <h3>Buscar músicas, artistas e álbuns</h3>
-
-        <form>
-          <label for="search">Buscar músicas</label>
-          <input
-            type="search"
-            id="search"
-            placeholder="Pesquisar músicas, artistas, álbuns"
-          >
-          <button>Pesquisar</button>
-        </form>
-        <section class="results">
-          <div class="section">
-            <div class="section-header">
-              <h3>Músicas encontradas</h3>
-              <span class="see-all">Mostrar tudo</span>
+    <!-- SECTIONS -->
+    <div id="home-section" class="section-container active">
+      <!-- HERO -->
+      <div class="container">
+        <div class="hero">
+          <h1>Boa tarde</h1>
+          <div class="hero-grid">
+            <div class="card" onclick="playTrack('liked')">
+              <img src="../assets/visuals/album1.jpg" alt="Album" />
+              <h4>Músicas Curtidas</h4>
             </div>
-              <div class="row music-row"></div>
+            <div class="card" onclick="playTrack('weekly')">
+              <img src="../assets/visuals/album2.jpg" alt="Album" />
+              <h4>Descobertas da Semana</h4>
+            </div>
+            <div class="card" onclick="playTrack('daily1')">
+              <img src="../assets/visuals/album3.jpg" alt="Album" />
+              <h4>Mix Diário 1</h4>
+            </div>
+            <div class="card" onclick="playTrack('daily2')">
+              <img src="../assets/visuals/album4.jpg" alt="Album" />
+              <h4>Mix Diário 2</h4>
+            </div>
+            <div class="card" onclick="playTrack('daily3')">
+              <img src="../assets/visuals/album5.jpg" alt="Album" />
+              <h4>Mix Diário 3</h4>
+            </div>
+            <div class="card" onclick="playTrack('radar')">
+              <img src="../assets/visuals/album6.jpg" alt="Album" />
+              <h4>Radar de Lançamentos</h4>
+            </div>
           </div>
-              <div class="section">
-              <div class="section-header">
-              <h3>Artistas encontrados</h3>
-              <span class="see-all">Mostrar tudo</span>
+        </div>
+
+        <!-- Músicas em Alta -->
+        <div class="section">
+          <div class="section-header">
+            <h2>Músicas em Alta</h2>
+            <span class="see-all">Ver tudo</span>
           </div>
-              <div class="row artist-row"></div>
+          <div class="tracks-list">
+            <!-- Tracks serão carregados aqui via JavaScript -->
           </div>
-              <div class="section">
-              <div class="section-header">
-              <h3>Álbuns encontrados</h3>
-              <span class="see-all">Mostrar tudo</span>
+        </div>
+
+        <!-- Outras seções do home -->
+        <div class="section">
+          <div class="section-header">
+            <h2>Feito para você</h2>
+            <span class="see-all">Ver tudo</span>
           </div>
-              <div class="row album-row"></div>
+          <div class="cards-grid">
+            <div class="card">
+              <img src="../assets/visuals/album1.jpg" alt="Album" />
+              <h4>Mix Diário 1</h4>
+              <p>Seu mix diário de...</p>
+            </div>
+            <div class="card">
+              <img src="../assets/visuals/album2.jpg" alt="Album" />
+              <h4>Descobertas da Semana</h4>
+              <p>Sua mixtape semanal...</p>
+            </div>
+            <div class="card">
+              <img src="../assets/visuals/album3.jpg" alt="Album" />
+              <h4>Radar de Lançamentos</h4>
+              <p>Capture todos os lançamentos...</p>
+            </div>
           </div>
-    </section>
-    </main>
-        <div class="glow glow-main"></div>
-        <div class="glow glow-echo"></div>
-        <div class="glow glow-echo"></div>
-        <script src="../scripts/animations.js"></script>
-        <script src="../scripts/music.js"></script>
-  </body>
+        </div>
+      </div>
+    </div>
+
+    <div id="search-section" class="section-container">
+      <div class="container">
+        <h1>Buscar</h1>
+        <div id="search-results" class="tracks-list">
+          <!-- Resultados da busca -->
+        </div>
+      </div>
+    </div>
+
+    <div id="library-section" class="section-container">
+      <div class="container">
+        <h1>Sua Biblioteca</h1>
+        <div class="library-tabs">
+          <button onclick="showLibraryTab('playlists')">Playlists</button>
+          <button onclick="showLibraryTab('artists')">Artistas</button>
+          <button onclick="showLibraryTab('albums')">Álbuns</button>
+        </div>
+        <div id="library-content" class="cards-grid">
+          <!-- Conteúdo da biblioteca -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Login -->
+    <div id="login-modal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Login</h2>
+        <form onsubmit="login(event)">
+          <input type="email" placeholder="Email" required />
+          <input type="password" placeholder="Senha" required />
+          <button type="submit">Entrar</button>
+        </form>
+        <p>Ou <a href="#" onclick="loginWithSoundCloud()">Entrar com SoundCloud</a></p>
+      </div>
+    </div>
+
+    <!-- Modal Criar Playlist -->
+    <div id="create-playlist-modal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Criar Playlist</h2>
+        <form onsubmit="createPlaylist(event)">
+          <input type="text" id="playlist-name" placeholder="Nome da playlist" required />
+          <textarea id="playlist-description" placeholder="Descrição (opcional)"></textarea>
+          <button type="submit">Criar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- GLOW -->
+  <div class="glow glow-main"></div>
+
+  <script src="../scripts/animations.js"></script>
+  <script src="../scripts/test-api.js"></script>
+  <script src="../scripts/mock-data.js"></script>
+  <script src="../scripts/music.js"></script>
+</body>
 </html>
