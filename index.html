@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wave</title>
-  <link rel="stylesheet" href="../styles/main.css" />
+  <link rel="stylesheet" href="css/main.css" />
 </head>
 
 <body>
@@ -18,7 +18,7 @@
         <span>Create Playlist</span>
       </div>
       <div class="playlist-item">
-        <img src="../assets/visuals/album1.jpg" alt="Liked Songs" />
+        <img src="assets/visuals/album1.jpg" alt="Liked Songs" />
         <span>Liked Songs</span>
       </div>
       <!-- Playlists dinâmicas -->
@@ -69,7 +69,7 @@
           <h1>Boa tarde</h1>
           <div class="hero-grid">
             <div class="card" onclick="playTrack('liked')">
-              <img src="../assets/visuals/album1.jpg" alt="Album" />
+              <img src="assets/visuals/album1.jpg" alt="Album" />
               <h4>Músicas Curtidas</h4>
             </div>
             <div class="card" onclick="playTrack('weekly')">
@@ -114,7 +114,7 @@
           </div>
           <div class="cards-grid">
             <div class="card">
-              <img src="../assets/visuals/album1.jpg" alt="Album" />
+              <img src="assets/visuals/album1.jpg" alt="Album" />
               <h4>Mix Diário 1</h4>
               <p>Seu mix diário de...</p>
             </div>
@@ -187,9 +187,12 @@
   <!-- GLOW -->
   <div class="glow glow-main"></div>
 
-  <script src="../scripts/animations.js"></script>
-  <script src="../scripts/test-api.js"></script>
-  <script src="../scripts/mock-data.js"></script>
-  <script src="../scripts/music.js"></script>
+  <!-- BACKGROUND WAVES -->
+  <canvas id="background-waves" class="background-waves"></canvas>
+
+  <script src="js/animations.js"></script>
+  <script src="js/test-api.js"></script>
+  <script src="js/mock-data.js"></script>
+  <script src="js/music.js"></script>
 </body>
 </html>

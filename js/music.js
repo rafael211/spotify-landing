@@ -11,6 +11,12 @@ class ProceduralMusicGenerator {
 
   init() {
     this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    this.analyser = this.audioContext.createAnalyser();
+    this.analyser.fftSize = 256;
+    this.dataArray = new Uint8Array(this.analyser.frequencyBinCount);
+    this.masterGain = this.audioContext.createGain();
+    this.masterGain.connect(this.analyser);
+    this.analyser.connect(this.audioContext.destination);
   }
 
   // Escalas musicais
@@ -60,7 +66,7 @@ class ProceduralMusicGenerator {
     const gainNode = this.audioContext.createGain();
 
     oscillator.connect(gainNode);
-    gainNode.connect(this.audioContext.destination);
+    gainNode.connect(this.masterGain);
 
     // Envelope ADSR simples
     const now = this.audioContext.currentTime + startTime;
@@ -113,6 +119,15 @@ class ProceduralMusicGenerator {
     }
     this.isPlaying = false;
   }
+
+  // Obtém dados de frequência para visualização
+  getFrequencyData() {
+    if (this.analyser) {
+      this.analyser.getByteFrequencyData(this.dataArray);
+      return this.dataArray;
+    }
+    return null;
+  }
 }
 
 // Instância global do gerador
@@ -132,6 +147,32 @@ let currentTracks = [];
 let mockAudioContext = null;
 let mockOscillator = null;
 let isPlayingMock = false;
+
+// Analyser para áudio real
+let realAudioAnalyser = null;
+let realAudioDataArray = null;
+
+function setupRealAudioAnalyser(audioElement) {
+  if (!mockAudioContext) {
+    mockAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  
+  const source = mockAudioContext.createMediaElementSource(audioElement);
+  realAudioAnalyser = mockAudioContext.createAnalyser();
+  realAudioAnalyser.fftSize = 256;
+  realAudioDataArray = new Uint8Array(realAudioAnalyser.frequencyBinCount);
+  
+  source.connect(realAudioAnalyser);
+  realAudioAnalyser.connect(mockAudioContext.destination);
+}
+
+function getRealAudioFrequencyData() {
+  if (realAudioAnalyser && currentAudio && !currentAudio.paused) {
+    realAudioAnalyser.getByteFrequencyData(realAudioDataArray);
+    return realAudioDataArray;
+  }
+  return null;
+}
 
 // Carregar tracks reais no carregamento da página
 document.addEventListener("DOMContentLoaded", async () => {
@@ -429,6 +470,10 @@ function playTrack(trackIndex, buttonElement) {
   }
 
   currentAudio = new Audio(streamUrl);
+  
+  // Setup analyser for real audio
+  setupRealAudioAnalyser(currentAudio);
+  
   currentAudio.play();
   if (buttonElement) {
     buttonElement.textContent = '⏸';
