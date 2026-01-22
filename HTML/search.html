@@ -10,24 +10,17 @@
 <body>
   <!-- SIDEBAR -->
   <div class="sidebar" id="sidebar">
-    <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
-    <div class="logo">
-      <div class="logo-wave wave-1"></div>
-      <div class="logo-wave wave-2"></div>
-      <div class="logo-wave wave-3"></div>
-    </div>
-
-    <nav class="sidebar-nav">
-      <a href="index.html">Home</a>
-      <a href="search.html" class="active">Search</a>
-      <a href="library.html">Your Library</a>
-    </nav>
-
     <div class="sidebar-divider"></div>
 
     <div class="sidebar-playlists">
-      <a href="#" onclick="showCreatePlaylist()">Create Playlist</a>
-      <a href="#">Liked Songs</a>
+      <div class="playlist-item" onclick="showCreatePlaylist()">
+        <div class="playlist-icon">+</div>
+        <span>Create Playlist</span>
+      </div>
+      <div class="playlist-item">
+        <img src="../assets/visuals/album1.jpg" alt="Liked Songs" />
+        <span>Liked Songs</span>
+      </div>
       <!-- Playlists dinâmicas -->
     </div>
   </div>
@@ -37,6 +30,7 @@
     <!-- HEADER -->
     <header>
       <div class="navbar">
+        <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
         <div class="nav-link" onclick="history.back()">←</div>
         <div class="nav-link" onclick="history.forward()">→</div>
         <div class="search">

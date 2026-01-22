@@ -210,6 +210,9 @@ async function loadPopularTracks() {
 function toggleSidebar() {
   const sidebar = document.getElementById('sidebar');
   sidebar.classList.toggle('collapsed');
+  // Save state to localStorage
+  const isCollapsed = sidebar.classList.contains('collapsed');
+  localStorage.setItem('sidebarCollapsed', isCollapsed);
 }
 
 // Navegação entre seções
@@ -536,6 +539,18 @@ function nextTrack() {
   // Implementar navegação para próximo track
   console.log('Next track');
 }
+
+// Initialize sidebar state on page load
+function initSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+  if (isCollapsed) {
+    sidebar.classList.add('collapsed');
+  }
+}
+
+// Call init on load
+document.addEventListener('DOMContentLoaded', initSidebar);
 
 // Fechar modais ao clicar fora
 window.onclick = function(event) {
